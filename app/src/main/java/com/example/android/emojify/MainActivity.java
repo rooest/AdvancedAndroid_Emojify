@@ -41,8 +41,8 @@ import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
 
-    // TODO (1): Create a Java class called Emojifier
-        // TODO (2): Create a static method in the Emojifier class called detectFaces() which detects and logs the number of faces in a given bitmap.
+    // COMPLETED (1): Create a Java class called Emojifier
+    // COMPLETED (2): Create a static method in the Emojifier class called detectFaces() which detects and logs the number of faces in a given bitmap.
 
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     private static final int REQUEST_STORAGE_PERMISSION = 1;
@@ -99,8 +99,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
-            @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode,@NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
         // Called when you request permission to read and write to external storage
         switch (requestCode) {
             case REQUEST_STORAGE_PERMISSION: {
@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
                     launchCamera();
                 } else {
                     // If you do not get permission, show a Toast
-                    Toast.makeText(this, R.string.permission_denied, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this,R.string.permission_denied,Toast.LENGTH_SHORT).show();
                 }
                 break;
             }
@@ -147,17 +147,17 @@ public class MainActivity extends AppCompatActivity {
                         photoFile);
 
                 // Add the URI so the camera can store the image
-                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,photoURI);
 
                 // Launch the camera activity
-                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+                startActivityForResult(takePictureIntent,REQUEST_IMAGE_CAPTURE);
             }
         }
     }
 
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult(int requestCode,int resultCode,Intent data) {
         // If the image capture activity was called and was successful
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             // Process the image and set it to the TextView
@@ -165,7 +165,7 @@ public class MainActivity extends AppCompatActivity {
         } else {
 
             // Otherwise, delete the temporary image file
-            BitmapUtils.deleteImageFile(this, mTempPhotoPath);
+            BitmapUtils.deleteImageFile(this,mTempPhotoPath);
         }
     }
 
@@ -182,9 +182,11 @@ public class MainActivity extends AppCompatActivity {
         mClearFab.setVisibility(View.VISIBLE);
 
         // Resample the saved image to fit the ImageView
-        mResultsBitmap = BitmapUtils.resamplePic(this, mTempPhotoPath);
+        mResultsBitmap = BitmapUtils.resamplePic(this,mTempPhotoPath);
 
-        // TODO (3): Call the new detectFaces() method, passing in the resampled bitmap to detect the faces in the picture.
+
+        // COMPLETED (3): Call the new detectFaces() method, passing in the resampled bitmap to detect the faces in the picture.
+        Emojifier.detectFaces(this,mResultsBitmap);
 
         // Set the new bitmap to the ImageView
         mImageView.setImageBitmap(mResultsBitmap);
@@ -198,10 +200,10 @@ public class MainActivity extends AppCompatActivity {
      */
     public void saveMe(View view) {
         // Delete the temporary image file
-        BitmapUtils.deleteImageFile(this, mTempPhotoPath);
+        BitmapUtils.deleteImageFile(this,mTempPhotoPath);
 
         // Save the image
-        BitmapUtils.saveImage(this, mResultsBitmap);
+        BitmapUtils.saveImage(this,mResultsBitmap);
     }
 
     /**
@@ -211,13 +213,13 @@ public class MainActivity extends AppCompatActivity {
      */
     public void shareMe(View view) {
         // Delete the temporary image file
-        BitmapUtils.deleteImageFile(this, mTempPhotoPath);
+        BitmapUtils.deleteImageFile(this,mTempPhotoPath);
 
         // Save the image
-        BitmapUtils.saveImage(this, mResultsBitmap);
+        BitmapUtils.saveImage(this,mResultsBitmap);
 
         // Share the image
-        BitmapUtils.shareImage(this, mTempPhotoPath);
+        BitmapUtils.shareImage(this,mTempPhotoPath);
     }
 
     /**
@@ -235,6 +237,6 @@ public class MainActivity extends AppCompatActivity {
         mClearFab.setVisibility(View.GONE);
 
         // Delete the temporary image file
-        BitmapUtils.deleteImageFile(this, mTempPhotoPath);
+        BitmapUtils.deleteImageFile(this,mTempPhotoPath);
     }
 }
