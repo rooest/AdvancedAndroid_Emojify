@@ -124,7 +124,6 @@ class Emojifier {
                 emoji = Emoji.FROWN;
             }
         }
-
         // Log the chosen Emoji
         Log.d(LOG_TAG, "whichEmoji: " + emoji.name());
     }
